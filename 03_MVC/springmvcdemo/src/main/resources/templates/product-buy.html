@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Buy product</title>
+</head>
+<body>
+<h1>Buy product</h1>
+<h2>You want to buy : </h2>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Weight</th>
+        <th>Expiry date</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.weight}"></td>
+        <td th:text="${product.expiry_date}"></td>
+    </tr>
+    </tbody>
+</table>
+<p>How many you want to buy?</p>
+<form action="#" th:action="@{/customer/new}" th:object="${product}" method="post">
+    <label for="quantity">Quantity</label>
+    <input type="hidden" th:field="*{id}" id="id">
+    <input type="hidden" th:field="*{name}" id="name">
+    <input type="hidden" th:field="*{price}" id="price">
+    <input type="hidden" th:field="*{weight}" id="weight">
+    <input type="hidden" th:field="*{expiry_date}" id="expiry_date">
+    <input type="text" th:field="*{quantity}" id="quantity" placeholder="Quantity">
+    <input type="submit" value="Buy Product">
+</form>
+
+<p><a th:href="@{/customer}">Previous page</a></p>
+</body>
+</html>

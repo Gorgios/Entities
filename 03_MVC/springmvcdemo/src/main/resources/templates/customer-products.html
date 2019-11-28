@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Storehouse</title>
+</head>
+<body>
+<h1>Welcome to our storehouse</h1>
+
+<h2>We have <span th:text="${products.size()}"></span> products in our storehouse</h2>
+<div th:switch="${products}">
+  <h2 th:case="null">No products</h2>
+  <div th:case="*">
+    <h2>Products</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Weight</th>
+        <th>Quantity</th>
+        <th>Expiry date</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="product : ${products}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.weight}"></td>
+        <td th:text="${product.quantity}"></td>
+        <td th:text="${product.expiry_date}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><a href="/customer/products">Show your products </a></p>
+  <p th:text="${wallet}"> - Its your credits</p>
+</div>
+
+</form>
+</body>

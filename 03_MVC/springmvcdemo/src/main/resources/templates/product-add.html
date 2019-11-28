@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add product</title>
+</head>
+<body>
+<h1>Add product</h1>
+
+<form action="#" th:action="@{/product/add}" th:object="${product}" method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Product name">
+    <label for="price">Price of unit</label>
+    <input type="text" th:field="*{price}" id="price" placeholder="Price of unit">
+    <label for="weight">Weight of unit</label>
+    <input type="text" th:field="*{weight}" id="weight" placeholder="Weight of unit">
+    <label for="quantity">Quantity</label>
+    <input type="text" th:field="*{quantity}" id="quantity" placeholder="Quantity">
+    <label for="expiryDate">Expiry Date</label>
+    <input type="date" th:field="*{expiry_date}" id="expiryDate">
+    <input type="submit" value="Add Product">
+</form>
+
+<p><a th:href="@{/product}">Previous page</a></p>
+</body>
+</html>
