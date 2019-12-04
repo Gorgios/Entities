@@ -36,10 +36,11 @@ public class ProductController {
     void deletePerson() {
         ps.removeExpiredItems();
     }
-    @PutMapping("/api/prduct/{id}")
-    public Product updateProduct(@PathVariable Integer id, @RequestBody  Product product){
+    @PutMapping("/api/product/")
+    public Product updateProduct( @RequestBody  Product product){
+
         ps.updateProduct(product);
-        return ps.findById(id);
+        return product;
     }
     @GetMapping("/api/productsWorth")
     public Double worthOfProducts(){
@@ -50,14 +51,23 @@ public class ProductController {
         return cs.findAllProducts();
     }
     @PostMapping("/api/customer")
-    public Product buyProductCustomer(@RequestBody Product product){
+    public String buyProductCustomer( @RequestBody Product product){
+        if (!ps.checkQuant(product))
+            return "Too many items you want to buy";
+        if (!cs.checkWallet(product))
+            return "You have not money for that purchase";
         ps.buyProduct(product);
         cs.addProduct(product);
-        return product;
+        return "Succesfully bought product" ;
     }
     @GetMapping("/api/customer/{id}")
     public Product getCustomerProductById(@PathVariable Integer id){
         return cs.findById(id);
+    }
+    @GetMapping("/api/customer/getWallet")
+    public String getWallet(){
+        String wallet = Double.toString(cs.getWallet());
+        return wallet;
     }
 
 }

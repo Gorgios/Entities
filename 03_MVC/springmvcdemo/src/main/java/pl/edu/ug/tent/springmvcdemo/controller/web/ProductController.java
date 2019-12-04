@@ -3,12 +3,14 @@ package pl.edu.ug.tent.springmvcdemo.controller.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.ug.tent.springmvcdemo.domain.Product;
 import pl.edu.ug.tent.springmvcdemo.service.ProductService;
+
+import javax.validation.Valid;
 
 @Controller("product")
 public class ProductController {
@@ -46,7 +48,8 @@ public class ProductController {
     }
 
     @PostMapping("/product/add")
-    public String addProduct(Product product, Model model) {
+    public String addProduct(@Valid Product product, Model model) {
+        System.out.println(product);
         ps.addProduct(product);
         model.addAttribute("products", ps.findAllProducts());
         return "product-all";
