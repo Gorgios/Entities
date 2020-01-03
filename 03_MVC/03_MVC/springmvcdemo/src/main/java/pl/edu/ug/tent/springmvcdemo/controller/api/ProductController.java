@@ -1,14 +1,13 @@
 package pl.edu.ug.tent.springmvcdemo.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.ug.tent.springmvcdemo.domain.Product;
 import pl.edu.ug.tent.springmvcdemo.service.CustomerService;
 import pl.edu.ug.tent.springmvcdemo.service.ProductService;
 
-import javax.validation.Valid;
 import java.util.List;
+
 @RestController
 public class ProductController {
     @Autowired
@@ -21,12 +20,12 @@ public class ProductController {
         return ps.findAllProducts();
     }
     @PostMapping("/api/product")
-    public Product addProduct(@Valid @RequestBody Product product, BindingResult bindingResult){
-        ps.addProduct(product);
-        return product;
+    public Product addProduct(@RequestBody Product product){
+         ps.addProduct(product);
+         return product;
     }
     @GetMapping("/api/product/{id}")
-    public Product getProductById(@Valid @PathVariable Integer id, BindingResult bindingResult){
+    public Product getProductById(@PathVariable Integer id){
         return ps.findById(id);
     }
     @DeleteMapping("/api/product/{id}")
@@ -38,7 +37,7 @@ public class ProductController {
         ps.removeExpiredItems();
     }
     @PutMapping("/api/product/")
-    public Product updateProduct(@Valid @RequestBody  Product product){
+    public Product updateProduct( @RequestBody  Product product){
 
         ps.updateProduct(product);
         return product;
@@ -52,7 +51,7 @@ public class ProductController {
         return cs.findAllProducts();
     }
     @PostMapping("/api/customer")
-    public String buyProductCustomer( @Valid @RequestBody Product product){
+    public String buyProductCustomer( @RequestBody Product product){
         if (!ps.checkQuant(product))
             return "Too many items you want to buy";
         if (!cs.checkWallet(product))

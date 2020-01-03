@@ -1,25 +1,17 @@
 package pl.edu.ug.tent.springmvcdemo.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class Product {
     private int id;
     private String name;
-    @NotNull(message = "Please provide a price")
-    @NumberFormat(style = NumberFormat.Style.NUMBER)
+    @NumberFormat(style = NumberFormat.Style.NUMBER )
     private Double price;
-    @NotNull(message = "Please provide a weight")
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private Double weight;
-    @NotNull(message = "Please provide a date")
-    @Pattern(regexp = "^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$", message = "Bad input of date")
     private String expiry_date;
-    @NotNull(message = "Please provide a quantity")
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private Integer quantity;
 
