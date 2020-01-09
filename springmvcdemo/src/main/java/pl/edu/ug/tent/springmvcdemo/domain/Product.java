@@ -1,46 +1,49 @@
 package pl.edu.ug.tent.springmvcdemo.domain;
 
-import org.springframework.format.annotation.NumberFormat;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import java.util.Date;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
 public class Product {
-    private int id;
+    @Id
+    @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    @NumberFormat(style = NumberFormat.Style.NUMBER )
-    private Double price;
-    @NumberFormat(style = NumberFormat.Style.NUMBER)
-    private Double weight;
-    private String expiry_date;
-    @NumberFormat(style = NumberFormat.Style.NUMBER)
-    private Integer quantity;
+    private String price;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "product_category_id")
+    private ProductCategory productCategory;
+    @ManyToMany(mappedBy = "products", targetEntity = Shop.class)
+    @JsonIgnore
+    private List<Shop> shopList;
 
     public Product() {
     }
 
-    public Product(String name, Double price, Double weight, String expiry_date,Integer quantity) {
+    public Product(String name, String price) {
         this.name = name;
         this.price = price;
-        this.weight = weight;
-        this.expiry_date = expiry_date;
-        this.quantity = quantity;
     }
 
-    public Product(int id, String name, Double price, Double weight, String expiry_date, Integer quantity) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.weight = weight;
-        this.expiry_date = expiry_date;
-        this.quantity = quantity;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
     }
 
     public String getName() {
@@ -51,49 +54,30 @@ public class Product {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public Double getWeight() {
-        return weight;
+    public List<Shop> getShopList() {
+        return shopList;
     }
 
-    public void setWeight(Double weight) {
-        this.weight = weight;
+    public void setShopList(List<Shop> shopList) {
+        this.shopList = shopList;
     }
-
-    public String getExpiry_date() {
-        return expiry_date;
-    }
-
-    public void setExpiry_date(String expiry_date) {
-        this.expiry_date = expiry_date;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-
 
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", price=" + price +
-                ", weight=" + weight +
-                ", expiry_date='" + expiry_date + '\'' +
-                ", quantity=" + quantity +
+                ", price='" + price + '\'' +
+                ", productCategory=" + productCategory +
+                ", shopList=" + shopList +
                 '}';
     }
 }

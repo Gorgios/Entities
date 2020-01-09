@@ -1,4 +1,7 @@
 package pl.edu.ug.tent.springmvcdemo.repository;
 
-public interface AddressRepository {
+import org.springframework.data.repository.CrudRepository;
+import pl.edu.ug.tent.springmvcdemo.domain.Address;
+
+public interface AddressRepository extends CrudRepository<Address,Long> {
 }

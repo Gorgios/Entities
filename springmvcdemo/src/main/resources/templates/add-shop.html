@@ -2,15 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Spring MVC demo app</title>
+    <title>Spring MVC demo app</title>
 </head>
 <body>
 <h1>Welcome to our app</h1>
 
-<form action="#" th:action="@{/addShop}" th:object="${shop}" method="post">
-  <label for="name">Name</label>
-  <input type="text" th:field="*{name}" id="name" placeholder="Shop name">
-  <input type="submit" value="Submit shop">
+<form action="#" th:action="@{/save}" th:object="${shop}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Shop name">
+    <input type="submit" value="Submit shop">
 </form>
 
 </body>
