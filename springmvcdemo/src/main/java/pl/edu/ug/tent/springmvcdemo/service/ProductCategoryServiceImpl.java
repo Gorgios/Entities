@@ -38,6 +38,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
+    public void save(ProductCategory productCategory) {
+        pcr.save(productCategory);
+    }
+
+    @Override
     public String update(ProductCategory productCategory, Long id) {
         ProductCategory p = pcr.findById(id).orElse(null);
             if (p!=null) {

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>categories</title>
+</head>
+<body>
+<h1>Categories</h1>
+<h2>We have <span th:text="${categories.size()}"></span> categories </h2>
+<div th:switch="${categories}">
+    <h2 th:case="null">No categories</h2>
+    <div th:case="*">
+        <h2>categories</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.name}"></td>
+                <td><a th:href="@{/updateCategory/{id}(id=${category.id})}">Update</a></td>
+                <td>><a th:href="@{/category/delete/{id}(id=${category.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/addCategory">Add new category</a></p>
+</div>
+<h4><a th:href="@{/}">Shops</a></h4>
+</body>
+</html>

@@ -7,6 +7,7 @@ import pl.edu.ug.tent.springmvcdemo.domain.Product;
 import pl.edu.ug.tent.springmvcdemo.domain.ProductCategory;
 import pl.edu.ug.tent.springmvcdemo.domain.Shop;
 import pl.edu.ug.tent.springmvcdemo.repository.ProductRepository;
+import pl.edu.ug.tent.springmvcdemo.repository.ShopRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,11 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private ProductRepository pr;
+    private ShopRepository sr;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository pr) {
+    public ProductServiceImpl(ProductRepository pr, ShopRepository sr) {
+        this.sr =sr;
         this.pr = pr;
     }
 
@@ -29,6 +32,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findById(Long id) {
         return pr.findById(id).orElse(null);
+    }
+
+    @Override
+    public void save(Product product) {
+        pr.save(product);
     }
 
 
@@ -56,7 +64,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String delete(Long id) {
+
         Product p = pr.findById(id).orElse(null);
+        for (Shop s: sr.findAll()){
+            s.getProducts().removeIf(p2 -> p2.equals(p));
+            sr.save(s);
+        }
         p.setShopList(null);
         pr.save(p);
         if (findById(id) != null) {

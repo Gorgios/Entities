@@ -52,10 +52,6 @@ public class ProductCategory {
 
     @Override
     public String toString() {
-        return "ProductCategory{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", productList=" + productList +
-                '}';
+        return name;
     }
 }

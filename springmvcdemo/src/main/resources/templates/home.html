@@ -14,7 +14,6 @@
     <table>
       <thead>
       <tr>
-        <th>id</th>
         <th>Name</th>
       </tr>
       </thead>
@@ -23,11 +22,14 @@
         <td th:text="${shop.name}"></td>
         <td><a th:href="@{/updateShop/{id}(id=${shop.id})}">Update</a></td>
         <td>><a th:href="@{/delete/{id}(id=${shop.id})}">Delete</a></td>
+        <td>><a th:href="@{/shop/{id}/goToProducts(id=${shop.id})}">Go to shop</a></td>
       </tr>
       </tbody>
     </table>
   </div>
   <p><a href="/addShop">Add new shop</a></p>
+  <p><a href="/products">Go to products</a></p>
+  <p><a href="/categories">Go to categories</a></p>
 </div>
 <h4><a th:href="@{/}">Shops</a></h4>
 </body>
